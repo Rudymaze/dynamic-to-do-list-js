@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     taskInput = document.getElementById("task-input");
     teskText = taskInput.value.trim();
     if (taskText == "") {
-      prompt("enter a task");
+      alert("enter a task");
     }
     // const taskText.textContent = document.createElement("li");
   }
