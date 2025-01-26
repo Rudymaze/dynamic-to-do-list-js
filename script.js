@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //   creating a new task
   function addTask() {
-    taskText = document.getElementById("task-input").value.trim();
+    const taskText = document.getElementById("task-input").value.trim();
 
     // prevent adding an empty task
     if (taskText === "") {
