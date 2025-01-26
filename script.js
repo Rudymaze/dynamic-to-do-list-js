@@ -79,4 +79,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   // add a new task when the add button is clicked
   document.addEventListener("DOMContentLoaded", addTask());
+
+  document.addEventListener("DOMContentLoaded", () => {
+    loadTasks();
+    // Other initialization code
+  });
 });
