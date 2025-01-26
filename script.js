@@ -3,10 +3,10 @@ document.addEventListener("DOMContentLoaded", () => {
   taskInput = document.getElementById("task-input");
   taskList = document.getElementById("task-list");
 
-  localStorage.getItem("task");
+  localStorage.getItem("tasks");
 
   //   creating a new task
-  function addTask() {
+  function addTask(taskText, save = true) {
     const taskText = taskInput.value.trim();
 
     // prevent adding an empty task
@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     removeButton.onclick = () => {
       // remove the task from the list
       taskItem.remove();
+      saveTasksToLocalStorage();
 
       // update the counter
       taskItem.appendChild(removeButton);
@@ -38,6 +39,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // clear the input field after adding a task
       document.getElementById("task-Input").value = "";
+      // save the tasks to local storage
+      saveTasksToLocalStorage();
+
+      // update the counter
+      function saveTasksToLocalStorage() {
+        const taskList = document.getElementById("taskList");
+        const tasks = Array.from(taskList.children).map((li) =>
+          li.textContent.replace("Remove", "").trim()
+        );
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+      }
+
+      // load the tasks from local storage when the page is loaded
+      function loadTasks() {
+        const storedTasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+        storedTasks.forEach((taskText) => addTask(taskText, false)); // 'false' indicates not to save again to Local Storage
+      }
+
+      if (save) {
+        const storedTasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+        storedTasks.push(taskText);
+        localStorage.setItem("tasks", JSON.stringify(storedTasks));
+      }
 
       // add a new task when the add button is clicked
       const addButton = document.getElementById("add-task-btn");
