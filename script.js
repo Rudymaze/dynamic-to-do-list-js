@@ -1,14 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const tasks = localStorage.getItem("tasks");
-
   //   creating a new task
   function addTask(taskText, save = true) {
     taskText = document.getElementById("task-input").value.trim();
+    const taskList = document.getElementById("task-list");
 
     // prevent adding an empty task
     if (taskText !== "") {
       // create a new list item for the task
-      const taskList = document.getElementById("task-list");
+
       const taskItem = document.createElement("li");
       taskItem.textContent = taskText;
       taskList.appendChild(taskItem);
@@ -38,13 +37,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const addButton = document.getElementById("add-task-btn");
     addButton.addEventListener("click", addTask);
 
+    // get task list
+    localStorage.getItem("tasks", taskList);
+
     // save the tasks to local storage
     saveTasksToLocalStorage();
 
     // update the counter
     function saveTasksToLocalStorage() {
       const taskList = document.getElementById("taskList");
-      const tasks = Array.from(taskList.children).map((li) =>
+      const tasks = Array.from(taskList.taskItem).map((li) =>
         li.textContent.replace("Remove", "").trim()
       );
       localStorage.setItem("tasks", JSON.stringify(tasks));
